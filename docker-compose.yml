@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  bde-app1-service:
+    build:
+      context: ./test/bde-app1-service
+    ports:
+      - "8081:8080"
+
+  bde-app2-service:
+    build:
+      context: ./test.bde-app2-service
+    ports:
+      - "8082:8080"
