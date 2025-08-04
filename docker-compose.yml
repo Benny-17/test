@@ -9,6 +9,7 @@ services:
 
   bde-app2-service:
     build:
-      context: ./test.bde-app2-service
+      context: ./test/bde-app2-service
     ports:
       - "8082:8080"
+
