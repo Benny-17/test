@@ -4,11 +4,13 @@ services:
   bde-app1-service:
     build:
       context: ./app1
+    image: app1:latest            # <--- Add this line here
     ports:
       - "8081:8080"
 
   bde-app2-service:
     build:
       context: ./app2
+    image: app2:latest            # <--- And here
     ports:
       - "8082:8080"
