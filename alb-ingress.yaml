@@ -11,17 +11,18 @@ spec:
   rules:
   - http:
       paths:
-      - path: /nginx
+      - path: /nginx/*
         pathType: Prefix
         backend:
           service:
             name: nginx-service
             port:
               number: 80
-      - path: /httpd
+      - path: /httpd/*
         pathType: Prefix
         backend:
           service:
             name: httpd-service
             port:
               number: 80
+
