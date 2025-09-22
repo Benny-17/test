@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: dev
+data:
+  NODE_ENV: production
+  PORT: "3000"
+  LOG_LEVEL: info
+  APP_NAME: nodejs-eks-app
+  REGION: us-east-1
