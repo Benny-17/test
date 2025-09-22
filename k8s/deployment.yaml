@@ -14,7 +14,7 @@ spec:
         app: app-service
     spec:
       containers:
-        - name: app-container
+        - name: app-service
           image: 906929958394.dkr.ecr.us-east-1.amazonaws.com/eks-deploy:latest
           ports:
             - containerPort: 3000
