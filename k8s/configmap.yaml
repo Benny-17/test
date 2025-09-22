@@ -7,5 +7,5 @@ data:
   NODE_ENV: production
   PORT: "3000"
   LOG_LEVEL: info
-  APP_NAME: eks-app
+  APP_NAME: eks
   REGION: us-east-1
