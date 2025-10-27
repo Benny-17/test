@@ -2,22 +2,27 @@ def call(Map config) {
     pipeline {
         agent any
 
-        environment {
-            SERVICE = config.serviceName
-            ENVIRONMENT = config.environment
-        }
-
         stages {
+            stage('Initialize') {
+                steps {
+                    script {
+                        // Dynamically assign environment variables
+                        env.SERVICE = config.serviceName
+                        env.ENVIRONMENT = config.environment
+                    }
+                }
+            }
+
             stage('Checkout') {
                 steps {
-                    echo "Checking out ${SERVICE} code..."
+                    echo "Checking out ${env.SERVICE} code..."
                     git branch: config.branch ?: 'main', url: config.gitRepo
                 }
             }
 
             stage('Build') {
                 steps {
-                    echo "Building ${SERVICE} for ${ENVIRONMENT}"
+                    echo "Building ${env.SERVICE} for ${env.ENVIRONMENT}"
                     sh 'npm install'
                     sh 'npm run build'
                 }
@@ -26,13 +31,13 @@ def call(Map config) {
 
         post {
             success {
-                echo "${SERVICE} build successful for ${ENVIRONMENT}"
+                echo "${env.SERVICE} build successful for ${env.ENVIRONMENT}"
             }
             failure {
-                echo "${SERVICE} build failed for ${ENVIRONMENT}"
+                echo "${env.SERVICE} build failed for ${env.ENVIRONMENT}"
             }
             always {
-                echo "Pipeline finished for ${SERVICE} (${ENVIRONMENT})"
+                echo "Pipeline finished for ${env.SERVICE} (${env.ENVIRONMENT})"
             }
         }
     }
