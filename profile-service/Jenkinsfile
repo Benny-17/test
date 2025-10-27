@@ -1,0 +1,11 @@
+@Library('common-pipeline') _
+
+deployPipeline(
+    serviceName: 'profile-service',
+    environment: 'qa',
+    gitRepo: 'https://github.com/Benny-17/test.git',
+    branch: 'main',
+    s3Bucket: 'profile-qa-bucket',
+    cloudFrontId: 'E456PROFID',
+    healthEndpoint: 'https://qa.profile.example.com/health'
+)

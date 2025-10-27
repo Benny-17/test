@@ -1,0 +1,11 @@
+@Library('common-pipeline') _
+
+deployPipeline(
+    serviceName: 'app-service',
+    environment: 'dev',
+    gitRepo: 'https://github.com/Benny-17/test.git',
+    branch: 'main',
+    s3Bucket: 'app-dev-bucket',
+    cloudFrontId: 'E123APPID',
+    healthEndpoint: 'https://dev.app.example.com/health'
+)
