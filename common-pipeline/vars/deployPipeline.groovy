@@ -2,27 +2,24 @@ def call(Map config) {
     pipeline {
         agent any
 
-        stages {
-            stage('Initialize') {
-                steps {
-                    script {
-                        // Dynamically assign environment variables
-                        env.SERVICE = config.serviceName
-                        env.ENVIRONMENT = config.environment
-                    }
-                }
-            }
+        // Parameters for dropdowns
+        parameters {
+            choice(name: 'SERVICE', choices: ['app-service', 'user-service', 'payment-service'], description: 'Select the service to build')
+            choice(name: 'ENVIRONMENT', choices: ['dev', 'qa', 'prod'], description: 'Select target environment')
+            choice(name: 'BRANCH', choices: ['main', 'develop', 'feature'], description: 'Select Git branch')
+        }
 
+        stages {
             stage('Checkout') {
                 steps {
-                    echo "Checking out ${env.SERVICE} code..."
-                    git branch: config.branch ?: 'main', url: config.gitRepo
+                    echo "Checking out ${params.SERVICE} code from branch ${params.BRANCH}..."
+                    git branch: params.BRANCH, url: config.gitRepo
                 }
             }
 
             stage('Build') {
                 steps {
-                    echo "Building ${env.SERVICE} for ${env.ENVIRONMENT}"
+                    echo "Building ${params.SERVICE} for ${params.ENVIRONMENT}"
                     sh 'npm install'
                     sh 'npm run build'
                 }
@@ -31,13 +28,13 @@ def call(Map config) {
 
         post {
             success {
-                echo "${env.SERVICE} build successful for ${env.ENVIRONMENT}"
+                echo "${params.SERVICE} build successful for ${params.ENVIRONMENT}"
             }
             failure {
-                echo "${env.SERVICE} build failed for ${env.ENVIRONMENT}"
+                echo "${params.SERVICE} build failed for ${params.ENVIRONMENT}"
             }
             always {
-                echo "Pipeline finished for ${env.SERVICE} (${env.ENVIRONMENT})"
+                echo "Pipeline finished for ${params.SERVICE} (${params.ENVIRONMENT})"
             }
         }
     }
