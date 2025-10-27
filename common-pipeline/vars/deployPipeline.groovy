@@ -4,7 +4,7 @@ def call(Map config) {
 
         // Parameters for dropdowns
         parameters {
-            choice(name: 'SERVICE', choices: ['app-service', 'user-service', 'payment-service'], description: 'Select the service to build')
+            choice(name: 'SERVICE', choices: ['app-service', 'profile-service', 'payment-service'], description: 'Select the service to build')
             choice(name: 'ENVIRONMENT', choices: ['dev', 'qa', 'prod'], description: 'Select target environment')
             choice(name: 'BRANCH', choices: ['main', 'develop', 'feature'], description: 'Select Git branch')
         }
